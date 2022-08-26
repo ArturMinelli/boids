@@ -41,35 +41,6 @@ class Predator:
         if self.pos.y - self.r < 0:
             self.pos.y = self.r + 1
 
-    def move_AI(self, net, target):
-        vector_to_target = Vector.static_sub(target, self.pos)
-        dist = vector_to_target.mag()
-        angle = vector_to_target.heading()
-
-        output = net.activate((dist, angle))
-        decision = output.index(max(output))
-
-        v = Vector(0, 0)
-        decided = False
-        if decision == 0:
-            v.add(Vector(0, -1))
-            decided = True
-        if decision == 1:
-            v.add(Vector(0, 1))
-            decided = True
-        if decision == 2:
-            v.add(Vector(-1, 0))
-            decided = True
-        if decision == 3:
-            v.add(Vector(1, 0))
-            decided = True
-        if decision == 4:
-            decided = True
-
-        if decided:
-            v.setMag(self.speed)
-        self.update(v)
-
     def update(self, vel):
         self.pos.add(vel)
 
